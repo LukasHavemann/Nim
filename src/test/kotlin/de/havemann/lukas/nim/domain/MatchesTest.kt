@@ -25,19 +25,19 @@ internal class MatchesTest {
     @Test
     fun `equals and hashcode test`() {
         val softly = SoftAssertions()
-        softly.assertThat(Match.THREE).isEqualTo(Match(3));
-        softly.assertThat(Match.THREE.hashCode()).isEqualTo(Match(3).hashCode());
+        softly.assertThat(Match.THREE).isEqualTo(Match(3))
+        softly.assertThat(Match.THREE.hashCode()).isEqualTo(Match(3).hashCode())
         softly.assertAll()
     }
 
     @Test
     fun `operator overloading test`() {
         val softly = SoftAssertions()
-        softly.assertThat(Match.ONE > Match.THREE).isFalse;
-        softly.assertThat(Match.ONE > Match.ONE).isFalse;
-        softly.assertThat(Match.TWO > Match.ONE).isTrue;
-        softly.assertThat(Match.ONE == Match.ONE).isTrue;
-        softly.assertThat(Match.ONE == Match(1)).isTrue;
+        softly.assertThat(Match.ONE > Match.THREE).isFalse
+        softly.assertThat(Match.ONE > Match.ONE).isFalse
+        softly.assertThat(Match.TWO > Match.ONE).isTrue
+        softly.assertThat(Match.ONE == Match.ONE).isTrue
+        softly.assertThat(Match.ONE == Match(1)).isTrue
         softly.assertAll()
     }
 
@@ -46,7 +46,7 @@ internal class MatchesTest {
         val range = Match.ONE..Match.THREE
 
         val softly = SoftAssertions()
-        softly.assertThat(range.contains(Match.ONE)).isTrue;
+        softly.assertThat(range.contains(Match.ONE)).isTrue
         softly.assertThat(range.contains(Match(4))).isFalse
         softly.assertAll()
     }
@@ -54,8 +54,8 @@ internal class MatchesTest {
     @Test
     fun `max test`() {
         val softly = SoftAssertions()
-        softly.assertThat(Match.min(Match.ONE, Match.THREE)).isEqualTo(Match.ONE);
-        softly.assertThat(Match.min(Match.THREE, Match.ONE)).isEqualTo(Match.ONE);
+        softly.assertThat(Match.min(Match.ONE, Match.THREE)).isEqualTo(Match.ONE)
+        softly.assertThat(Match.min(Match.THREE, Match.ONE)).isEqualTo(Match.ONE)
         softly.assertAll()
     }
 }

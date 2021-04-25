@@ -1,5 +1,8 @@
 package de.havemann.lukas.nim.domain
 
+/**
+ * Value type representing a Match or set of matches.
+ */
 class Match(var value: Int) : Comparable<Match> {
     companion object {
         val ZERO = Match(0)

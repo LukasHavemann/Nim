@@ -21,7 +21,7 @@ internal class NimGameTest {
     private fun setup() {
         player2 = MockablePlayer(Match.ONE)
         player1 = MockablePlayer(Match.ONE)
-        nimGame = NimGameImpl(player1, player2, Match(13));
+        nimGame = NimGameImpl(player1, player2, Match(13))
         softly = SoftAssertions()
     }
 
@@ -44,7 +44,7 @@ internal class NimGameTest {
     }
 
     @Test
-    fun `more compley game run`() {
+    fun `more complex game run`() {
         player1.draws = mutableListOf(
             Match.THREE,  // remaining 10
             Match.THREE,  // remaining 4
@@ -78,12 +78,9 @@ internal class NimGameTest {
     }
 
     data class MockablePlayer(var nextMove: Match) : NimGame.Player {
-        var draws: MutableList<Match> = Collections.emptyList();
-        var observedRemainingMatches = mutableListOf<Match>()
+        var draws: MutableList<Match> = Collections.emptyList()
 
         override fun requestToDraw(turn: NimGame.Turn) {
-            observedRemainingMatches.add(turn.remainingMatches())
-
             if (draws.isEmpty()) {
                 turn.draw(nextMove)
                 return

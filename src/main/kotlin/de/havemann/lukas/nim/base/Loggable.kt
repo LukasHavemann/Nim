@@ -42,7 +42,7 @@ fun <R : Any> R.injectLogger(): Lazy<Logger> {
 }
 
 // marker interface and related extension (remove extension for Any.logger() in favour of this)
-interface Loggable {}
+interface Loggable
 
 fun Loggable.logger(): Logger = logger(this.javaClass)
 

@@ -1,11 +1,12 @@
-package de.havemann.lukas.nim.domain
+package de.havemann.lukas.nim.domain.entites
 
+import de.havemann.lukas.nim.domain.valuetype.Match
 import kotlin.random.Random
 
 /**
  * Player that draws automatically a random determined count of matches
  */
-class RandomPlayer : NimGame.Player {
+public class RandomPlayer(override val name: String = "random computer player") : NimGame.Player {
     override fun requestToDraw(turn: NimGame.Turn) {
         turn.draw(determineRandomValue(turn))
     }
@@ -23,9 +24,15 @@ class RandomPlayer : NimGame.Player {
 /**
  * Player that remembers the current turn and waits for async invocation of turn
  */
-class StatefulPlayer : NimGame.Player {
+class StatefulPlayer(override val name: String) : NimGame.Player {
 
     private var currentTurn: NimGame.Turn? = null
+
+    fun draw(match: Match) {
+        synchronized(this) {
+            currentTurn?.draw(match)
+        }
+    }
 
     override fun requestToDraw(turn: NimGame.Turn) {
         currentTurn = turn

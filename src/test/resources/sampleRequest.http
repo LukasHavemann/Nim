@@ -1,0 +1,17 @@
+POST localhost:8080/nimgame/against/computer/create
+
+### draw two
+
+PUT localhost:8080/nimgame/against/computer/1/draw?count=one
+
+### invalid draw
+
+PUT localhost:8080/nimgame/against/computer/1/draw?count=abc
+
+### draw from game two
+
+PUT localhost:8080/nimgame/against/computer/2/draw?count=three
+
+### get current game state
+
+GET localhost:8080/nimgame/1

@@ -1,5 +1,8 @@
-package de.havemann.lukas.nim.domain
+package de.havemann.lukas.nim.domain.entities
 
+import de.havemann.lukas.nim.domain.entites.NimGame
+import de.havemann.lukas.nim.domain.entites.NimGameImpl
+import de.havemann.lukas.nim.domain.valuetype.Match
 import org.assertj.core.api.SoftAssertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -21,25 +24,25 @@ internal class NimGameTest {
     private fun setup() {
         player2 = MockablePlayer(Match.ONE)
         player1 = MockablePlayer(Match.ONE)
-        nimGame = NimGameImpl(player1, player2, Match(13))
+        nimGame = NimGameImpl(1L, player1, player2, Match(13))
         softly = SoftAssertions()
     }
 
     @Test
     fun `game should have at least 2 matches`() {
-        assertThrows<IllegalArgumentException> { NimGameImpl(player1, player2, Match(0)) }
-        assertThrows<IllegalArgumentException> { NimGameImpl(player1, player2, Match(1)) }
+        assertThrows<IllegalArgumentException> { NimGameImpl(1L, player1, player2, Match(0)) }
+        assertThrows<IllegalArgumentException> { NimGameImpl(1L, player1, player2, Match(1)) }
     }
 
     @Test
     fun `simple game run with one match draw`() {
-        softly.assertThat(nimGame.currentGameState()).`as`("before start").isEqualTo(NimGame.GameState.NOT_STARTED)
+        softly.assertThat(nimGame.gameState).`as`("before start").isEqualTo(NimGame.GameState.NOT_STARTED)
 
         nimGame.start()
 
-        softly.assertThat(nimGame.currentGameState()).isEqualTo(NimGame.GameState.FINISHED)
-        softly.assertThat(nimGame.currentMatches()).isEqualTo(Match.ZERO)
-        softly.assertThat(nimGame.getWinner()).isEqualTo(player1)
+        softly.assertThat(nimGame.gameState).isEqualTo(NimGame.GameState.FINISHED)
+        softly.assertThat(nimGame.currentMatches).isEqualTo(Match.ZERO)
+        softly.assertThat(nimGame.winner).isEqualTo(player1)
         softly.assertAll()
     }
 
@@ -59,9 +62,9 @@ internal class NimGameTest {
         )
 
         nimGame.start()
-        softly.assertThat(nimGame.currentGameState()).isEqualTo(NimGame.GameState.FINISHED)
-        softly.assertThat(nimGame.currentMatches()).isEqualTo(Match.ZERO)
-        softly.assertThat(nimGame.getWinner()).isEqualTo(player2)
+        softly.assertThat(nimGame.gameState).isEqualTo(NimGame.GameState.FINISHED)
+        softly.assertThat(nimGame.currentMatches).isEqualTo(Match.ZERO)
+        softly.assertThat(nimGame.winner).isEqualTo(player2)
         softly.assertAll()
     }
 
@@ -77,7 +80,7 @@ internal class NimGameTest {
         assertThrows<IllegalStateException> { nimGame.start() }
     }
 
-    data class MockablePlayer(var nextMove: Match) : NimGame.Player {
+    data class MockablePlayer(var nextMove: Match, override val name: String = "mocked player") : NimGame.Player {
         var draws: MutableList<Match> = Collections.emptyList()
 
         override fun requestToDraw(turn: NimGame.Turn) {

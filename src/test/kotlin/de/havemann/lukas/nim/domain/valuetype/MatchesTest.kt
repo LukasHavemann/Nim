@@ -1,4 +1,4 @@
-package de.havemann.lukas.nim.domain
+package de.havemann.lukas.nim.domain.valuetype
 
 import org.assertj.core.api.SoftAssertions
 import org.junit.jupiter.api.Test
@@ -9,7 +9,7 @@ internal class MatchesTest {
     @Test
     fun `creating negative matches is not allowed`() {
         assertThrows<IllegalArgumentException> {
-            Match(-10);
+            Match(-10)
         }
     }
 

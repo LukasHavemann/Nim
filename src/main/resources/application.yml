@@ -1,0 +1,10 @@
+de.havemann.lukas.nim.game.defaultMatches: 13
+
+logging.level:
+  root: INFO
+  de.havemann: DEBUG
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always

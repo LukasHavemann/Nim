@@ -46,8 +46,3 @@ interface Loggable
 
 fun Loggable.logger(): Logger = logger(this.javaClass)
 
-// abstract base class to provide logging, intended for companion objects more than classes but works for either
-abstract class WithLogging : Loggable {
-    val LOG = logger()
-}
-

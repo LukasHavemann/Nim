@@ -1,33 +1,29 @@
-package de.havemann.lukas.nim.domain
+package de.havemann.lukas.nim.domain.entites
 
 import de.havemann.lukas.nim.base.Loggable
 import de.havemann.lukas.nim.base.logger
-import de.havemann.lukas.nim.domain.NimGame.Turn
+import de.havemann.lukas.nim.domain.valuetype.Match
 
 /**
  * Representing the misère variant of the nim game
  */
 interface NimGame {
 
+    val id: Long
+    val initialMatches: Match
+    val currentMatches: Match
+    val gameState: GameState
+
+    /**
+     * @return winner of the game if {@link #gameState} is finished
+     */
+    val winner: Player?
+
     /**
      * Launches the game and asks the first player to draw
      */
     fun start()
 
-    /**
-     * @return describes the current game state
-     */
-    fun currentGameState(): GameState
-
-    /**
-     * @return Remaining matches in game
-     */
-    fun currentMatches(): Match
-
-    /**
-     * @return the winner of the game, if the game has finished
-     */
-    fun getWinner(): Player?
 
     /**
      * Representing a request to a player to execute a game move
@@ -46,9 +42,15 @@ interface NimGame {
     }
 
     /**
-     * Paricipant of the Nim game
+     * Participant of the Nim game
      */
     interface Player {
+
+        /**
+         * Unique name identifying the player
+         */
+        val name: String
+
         fun requestToDraw(turn: Turn)
     }
 
@@ -60,21 +62,30 @@ interface NimGame {
             return if (this == PLAYER_1) PLAYER_2 else PLAYER_1
         }
     }
+
+    fun currentPlayer(): Player
+    fun finished(): Boolean {
+        return gameState == GameState.FINISHED
+    }
 }
 
 data class NimGameImpl(
+    override val id: Long,
     val player1: NimGame.Player,
     val player2: NimGame.Player,
-    val initalMatches: Match
+    override val initialMatches: Match
 ) : NimGame, Loggable {
 
-    private var currentMatches: Match = initalMatches
-    private var gameState: NimGame.GameState = NimGame.GameState.NOT_STARTED
-    private var winner: NimGame.Player? = null
-
     init {
-        require(initalMatches > Match.ONE)
+        require(initialMatches > Match.ONE)
     }
+
+    override var currentMatches: Match = initialMatches
+        private set
+    override var gameState: NimGame.GameState = NimGame.GameState.NOT_STARTED
+        private set
+    override var winner: NimGame.Player? = null
+        private set
 
     override fun start() {
         require(gameState == NimGame.GameState.NOT_STARTED)
@@ -82,20 +93,8 @@ data class NimGameImpl(
         currentPlayer().requestToDraw(TurnCallback())
     }
 
-    override fun currentGameState(): NimGame.GameState {
-        return gameState
-    }
-
-    override fun currentMatches(): Match {
-        return currentMatches
-    }
-
-    override fun getWinner(): NimGame.Player? {
-        return winner
-    }
-
     fun executeDraw(toDraw: Match) {
-        if (toDraw > currentMatches || !(Match.ONE..Match.THREE).contains(toDraw)) {
+        if (canBeDrawn(toDraw)) {
             throw IllegalStateException("Not allowed move $currentMatches $toDraw")
         }
 
@@ -109,7 +108,10 @@ data class NimGameImpl(
         }
     }
 
-    private fun currentPlayer(): NimGame.Player {
+    private fun canBeDrawn(toDraw: Match) =
+        toDraw > currentMatches || !(Match.ONE..Match.THREE).contains(toDraw)
+
+    override fun currentPlayer(): NimGame.Player {
         return if (gameState == NimGame.GameState.PLAYER_1) player1 else player2
     }
 
@@ -122,11 +124,15 @@ data class NimGameImpl(
     }
 
     override fun toString(): String {
-        return "NimGameImpl(player1=$player1, player2=$player2, initalMatches=$initalMatches, currentMatches=$currentMatches, gameState=$gameState, winner=$winner)"
+        return "NimGameImpl(player1=$player1, " +
+                "player2=$player2, " +
+                "initalMatches=$initialMatches, " +
+                "currentMatches=$currentMatches, " +
+                "gameState=$gameState, " +
+                "winner=$winner)"
     }
 
-
-    inner class TurnCallback(private var calledOnce: Boolean = false) : Turn {
+    inner class TurnCallback(private var calledOnce: Boolean = false) : NimGame.Turn {
         override fun remainingMatches(): Match {
             return currentMatches
         }
@@ -140,5 +146,3 @@ data class NimGameImpl(
         }
     }
 }
-
-

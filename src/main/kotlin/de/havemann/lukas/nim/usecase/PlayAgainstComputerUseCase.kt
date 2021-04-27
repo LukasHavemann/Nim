@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.ResponseStatus
 
+/**
+ * Implements a simple use case where human player can play against a random computer player
+ */
 @Service
 class PlayAgainstComputerUseCase(@Autowired private val nimGameService: NimGameService) {
 
@@ -47,10 +50,10 @@ class PlayAgainstComputerUseCase(@Autowired private val nimGameService: NimGameS
             }
         }
     }
-
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    class UnknownMoveException(got: String) : RuntimeException("Unknown move $got")
-
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    class GameAlreadyFinished(gameId: Long) : RuntimeException("Game already finished $gameId")
 }
+
+@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+class UnknownMoveException(got: String) : RuntimeException("Unknown move $got")
+
+@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+class GameAlreadyFinished(gameId: Long) : RuntimeException("Game already finished $gameId")

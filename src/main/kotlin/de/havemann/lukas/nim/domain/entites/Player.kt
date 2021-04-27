@@ -6,7 +6,7 @@ import kotlin.random.Random
 /**
  * Player that draws automatically a random determined count of matches
  */
-public class RandomPlayer(override val name: String = "random computer player") : NimGame.Player {
+class RandomPlayer(override val name: String = "random computer player") : NimGame.Player {
     override fun requestToDraw(turn: NimGame.Turn) {
         turn.draw(determineRandomValue(turn))
     }

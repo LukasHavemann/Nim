@@ -3,7 +3,7 @@ package de.havemann.lukas.nim.domain.valuetype
 /**
  * Value type representing a Match or set of matches.
  */
-public class Match(var value: Int) : Comparable<Match> {
+class Match(var value: Int) : Comparable<Match> {
     companion object {
         val ZERO = Match(0)
         val ONE = Match(1)

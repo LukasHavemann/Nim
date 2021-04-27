@@ -126,7 +126,7 @@ data class NimGameImpl(
     override fun toString(): String {
         return "NimGameImpl(player1=$player1, " +
                 "player2=$player2, " +
-                "initalMatches=$initialMatches, " +
+                "initialMatches=$initialMatches, " +
                 "currentMatches=$currentMatches, " +
                 "gameState=$gameState, " +
                 "winner=$winner)"

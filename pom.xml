@@ -13,6 +13,7 @@
         <maven.compiler.target>14</maven.compiler.target>
         <junit-platform.version>5.7.1</junit-platform.version>
         <kotlin.version>1.5.0</kotlin.version>
+        <springfox.version>3.0.0</springfox.version>
     </properties>
 
     <parent>
@@ -157,6 +158,16 @@
             <artifactId>kotlin-test</artifactId>
             <version>${kotlin.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox.version}</version>
         </dependency>
     </dependencies>
 

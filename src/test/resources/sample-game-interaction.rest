@@ -1,0 +1,11 @@
+### With the following Post request you can start a new game. Please remember the returned gameId
+POST localhost:8080/nimgame/against/computer/create
+
+### To draw one match from the current stack you can execute:
+PUT localhost:8080/nimgame/against/computer/1/draw?count=one
+
+### you are allowed to draw one, two or three matches
+PUT localhost:8080/nimgame/against/computer/1/draw?count=three
+
+### to get the current game state just call
+GET localhost:8080/nimgame/1

@@ -15,7 +15,7 @@ import javax.validation.constraints.Min
 
 interface NimGameService {
     fun createNewGame(player1: NimGame.Player, player2: NimGame.Player): NimGame
-    fun deleteGame(id: Long): Boolean
+    fun deleteGame(id: Long): NimGame
     fun findGame(gameId: Long): NimGame
 }
 
@@ -37,8 +37,8 @@ class NimGameServiceInMemory : NimGameService {
         return game
     }
 
-    override fun deleteGame(id: Long): Boolean {
-        return games.remove(id) != null
+    override fun deleteGame(id: Long): NimGame {
+        return games.remove(id) ?: throw GameNotFoundException(id)
     }
 
     override fun findGame(gameId: Long): NimGame {
@@ -46,5 +46,5 @@ class NimGameServiceInMemory : NimGameService {
     }
 }
 
-@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+@ResponseStatus(code = HttpStatus.NOT_FOUND)
 class GameNotFoundException(gameId: Long) : RuntimeException("game not found gameId=$gameId")

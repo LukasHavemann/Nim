@@ -19,6 +19,10 @@ public class RandomPlayer(override val name: String = "random computer player") 
 
         return Match(Random.nextInt(Match.ONE.value, maxValue.value))
     }
+
+    override fun toString(): String {
+        return "RandomPlayer(name='$name')"
+    }
 }
 
 /**
@@ -36,5 +40,9 @@ class StatefulPlayer(override val name: String) : NimGame.Player {
 
     override fun requestToDraw(turn: NimGame.Turn) {
         currentTurn = turn
+    }
+
+    override fun toString(): String {
+        return "StatefulPlayer(name='$name')"
     }
 }

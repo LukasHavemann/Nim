@@ -19,7 +19,7 @@ internal class MatchesTest {
         softly.assertThat((Match(13) - Match.THREE).value).isEqualTo(10)
         softly.assertThat((Match(3) - Match.THREE).value).isEqualTo(0)
         softly.assertThatThrownBy { Match.ONE - Match.THREE }
-        softly.assertAll();
+        softly.assertAll()
     }
 
     @Test

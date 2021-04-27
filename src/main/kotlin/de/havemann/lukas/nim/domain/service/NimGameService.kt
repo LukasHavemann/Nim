@@ -13,12 +13,14 @@ import java.util.concurrent.atomic.AtomicLong
 import javax.validation.constraints.Min
 
 
+/**
+ * Service for management of {@link NimGame}
+ */
 interface NimGameService {
     fun createNewGame(player1: NimGame.Player, player2: NimGame.Player): NimGame
     fun deleteGame(id: Long): NimGame
     fun findGame(gameId: Long): NimGame
 }
-
 
 @Service
 class NimGameServiceInMemory : NimGameService {

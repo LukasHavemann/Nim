@@ -2,7 +2,7 @@
 
 Simple implementation of the Nim Game in Kotlin. The nim game can be played via a REST Interface. To learn more about
 how to play the game against the server, have a look
-at [sampla game interactions](https://raw.githubusercontent.com/LukasHavemann/Nim/main/src/test/resources/sample-game-interaction.rest)
+at [sample game interactions file](https://raw.githubusercontent.com/LukasHavemann/Nim/main/src/test/resources/sample-game-interaction.rest)
 . If you are running IntelliJ IDE you can execute
 them [directly from your IDE](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html).
 Alternatively you can start the server and go to `http://localhost:8080/swagger-ui/index.html`.

@@ -30,7 +30,7 @@ The architecture follows the hexagonal architecture pattern from [Alistair Cockb
 
 ## :hammer: Development, Build & Pipeline
 
-The execution of unit and integration tests were automated
+The execution of unit and integration tests is automated
 with [GitHub Actions](https://github.com/LukasHavemann/Nim/actions). The docker image build is automated
 with [DockerHub](https://hub.docker.com/repository/docker/lukashavemann/nim-game). As soon as a new merge to
 master happens, a new docker image is built by DockerHub cloud and provided with latest tag in

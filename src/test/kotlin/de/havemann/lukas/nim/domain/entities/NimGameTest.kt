@@ -40,10 +40,11 @@ internal class NimGameTest {
 
         nimGame.start()
 
-        softly.assertThat(nimGame.gameState).isEqualTo(NimGame.GameState.FINISHED)
-        softly.assertThat(nimGame.currentMatches).isEqualTo(Match.ZERO)
-        softly.assertThat(nimGame.winner).isEqualTo(player1)
-        softly.assertAll()
+        softly.apply {
+            assertThat(nimGame.gameState).isEqualTo(NimGame.GameState.FINISHED)
+            assertThat(nimGame.currentMatches).isEqualTo(Match.ZERO)
+            assertThat(nimGame.winner).isEqualTo(player1)
+        }.assertAll()
     }
 
     @Test
@@ -62,10 +63,12 @@ internal class NimGameTest {
         )
 
         nimGame.start()
-        softly.assertThat(nimGame.gameState).isEqualTo(NimGame.GameState.FINISHED)
-        softly.assertThat(nimGame.currentMatches).isEqualTo(Match.ZERO)
-        softly.assertThat(nimGame.winner).isEqualTo(player2)
-        softly.assertAll()
+
+        softly.apply {
+            assertThat(nimGame.gameState).isEqualTo(NimGame.GameState.FINISHED)
+            assertThat(nimGame.currentMatches).isEqualTo(Match.ZERO)
+            assertThat(nimGame.winner).isEqualTo(player2)
+        }.assertAll()
     }
 
     @Test

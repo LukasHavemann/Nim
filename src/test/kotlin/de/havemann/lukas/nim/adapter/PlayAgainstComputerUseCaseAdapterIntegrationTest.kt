@@ -23,11 +23,11 @@ internal class PlayAgainstComputerUseCaseAdapterIntegrationTest {
         val initialGameState = playAgainstComputerUseCaseAdapter.createNimGame()
         val lastDraw = playGameUntilFinished(initialGameState.id)
 
-        val softly = SoftAssertions()
-        softly.assertThat(initialGameState.remainingMatches).isEqualTo(13)
-        softly.assertThat(lastDraw.remainingMatches).isEqualTo(0)
-        softly.assertThat(lastDraw.finished).isTrue
-        softly.assertAll()
+        SoftAssertions().apply {
+            assertThat(initialGameState.remainingMatches).isEqualTo(13)
+            assertThat(lastDraw.remainingMatches).isEqualTo(0)
+            assertThat(lastDraw.finished).isTrue
+        }.assertAll()
     }
 
     @Test
